@@ -1,8 +1,24 @@
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
-from langchain_openai import ChatOpenAI
+
 from ecommbot.ingest import ingestdata
+from langchain_groq import ChatGroq
+import os
+from dotenv import load_dotenv
+import getpass
+
+
+
+
+ # Load environment variables from .env file
+load_dotenv()
+
+# Get API key from environment variable
+groq_api_key = os.getenv("GROQ_API_KEY")
+
+   # Initialize the ChatGroq client with the API key
+llm = ChatGroq(model="llama3-8b-8192", groq_api_key=groq_api_key)
 
 
 def generation(vstore):
@@ -26,7 +42,7 @@ def generation(vstore):
 
     prompt = ChatPromptTemplate.from_template(PRODUCT_BOT_TEMPLATE)
 
-    llm = ChatOpenAI()
+    
 
     chain = (
         {"context": retriever, "question": RunnablePassthrough()}

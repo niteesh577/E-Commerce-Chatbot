@@ -5,5 +5,9 @@ datasets
 pypdf
 python-dotenv
 flask
+langchain-huggingface
+langchain-google-genai
+langchain-groq
+
 
 -e .
